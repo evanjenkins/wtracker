@@ -1,0 +1,18 @@
+<section data-ng-controller="WorkoutsController" data-ng-init="findOne()">
+	<h1 editable-text="currentWorkout.title" onbeforesave="checkNotEmpty($data)">{{currentWorkout.title || 'empty'}}</h1>
+		<ul>
+			<li ng-repeat="exercise in currentWorkout.workoutsExercises">
+				<exercise ng-init="findThis(exercise.id)"></exercise>
+				{{exercise | json}}
+				<ul>
+					<li ng-repeat="set in exercise.sets">
+						<span><a editable-text="set.lb" onaftersave="checkNotEmpty($data)">{{set.lb}}</a> lb X <a onaftersave="checkNotEmpty($data)" editable-text="set.reps">{{set.reps}}</a> reps</span>
+						<span>{{calulateMax(set)}}</span>
+						<a class="btn" data-ng-click="removeSet($index, exercise.sets);">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+</section>

@@ -1,0 +1,69 @@
+<section data-ng-controller="ExercisesController" data-ng-init="findOne()">
+	<form name="exerciseForm" class="form-horizontal col-md-6" role="form" data-ng-submit="update(exerciseForm.$valid)" novalidate>
+		<div class="form-group" ng-class="{ 'has-error' : submitted && exerciseForm.title.$invalid }">
+			<label mean-token="'edit-title'" for="title" class="col-md-2 control-label">Title</label>
+			<div class="col-md-10">
+				<input name="title" type="text" class="form-control" data-ng-model="exercise.title" id="title" placeholder="Title" required>
+				<div ng-show="submitted && exerciseForm.title.$invalid" class="help-block">
+					<p ng-show="exerciseForm.title.$error.required">Title is required</p>
+				</div>
+			</div>
+		</div>
+		<!-- Photo -->
+		<div class="form-group">
+			<label class="col-md-3 control-label" mean-token="'start-photo'" for="exercise-photo">Exercise Photo</label>
+			<div class="col-md-9">
+				<mean-upload id="exercise-photo" file-dest="'/workouts/'"
+				             upload-callback="uploadFinished(files)"
+				             upload-file-callback="uploadFileCallback(file)">
+				</mean-upload>
+				<img data-ng-src="{{exercise.photo}}" alt="">
+				<a class="btn" data-ng-click="removeItem(muscle, exercise.works);">
+					<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</div>
+		</div>
+		<!-- Muscles Worked -->
+		<ul class="added-muscles">
+			<li ng-repeat="muscle in exercise.works">
+				<span>{{muscle}}</span>
+				<a class="btn" data-ng-click="removeItem(muscle, exercise.works);">
+					<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</li>
+		</ul>
+		<div class="form-group" ng-class="{ 'has-error': submitted && exerciseForm.works.$invalid}">
+			<label mean-token="'create-works" for="works" class="col-md-3 control-label">Muscles Worked</label>
+			<div class="col-md-9">
+				<select id="works" ng-model="muscle" ng-options="muscle for muscle in muscles"></select>
+				<div ng-show="submitted && exerciseForm.works.$invalid" class="help-block">
+					<p ng-show="exerciseForm.works.$error.required">Muscle group is required</p>
+				</div>
+				<a ng-click="addItem(muscle, exercise.works)" class="btn-secondary">Add Muscle Group</a>
+			</div>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error': submitted && exerciseForm.equipment.$invalid}">
+			<label mean-token="'create-equipment" for="equipment" class="col-md-3 control-label">Equipment</label>
+			<div class="col-md-9">
+				<select id="equipment" ng-model="exercise.equipment" ng-options="equipment for equipment in equipments"></select>
+			</div>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error': submitted && exerciseForm.category.$invalid}">
+			<label mean-token="'create-category" for="category" class="col-md-3 control-label">Category</label>
+			<div class="col-md-9">
+				<select id="category" ng-model="exercise.category" ng-options="category for category in categories"></select>
+			</div>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error' : submitted && exerciseForm.description.$invalid }">
+			<label mean-token="'edit-description'" for="content" class="col-md-2 control-label">Exercise Description</label>
+			<div class="col-md-10">
+				<textarea name="content" data-ng-model="exercise.description" id="content" cols="30" rows="10" placeholder="Enter exercise description" class="form-control" required></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<button mean-token="'edit-submit'" type="submit" class="btn btn-default">Submit</button>
+			</div>
+		</div>
+	</form>
+</section>

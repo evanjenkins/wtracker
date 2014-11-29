@@ -1,0 +1,19 @@
+
+
+.list-items {
+  padding: 0;
+  margin-top: 10px;
+}
+.list-items li {
+  background: red;
+  list-style: none;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px;
+  min-height: 40px;
+}
+
+.list-items span {
+  margin-left: 20px;
+  display: inline-block;
+}

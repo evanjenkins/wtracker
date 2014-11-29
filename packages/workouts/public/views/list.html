@@ -1,0 +1,21 @@
+<section data-ng-controller="WorkoutsController" data-ng-init="find()">
+	<ul class="workouts unstyled">
+		<li data-ng-repeat="workout in workouts">
+			<div class="col-md-11">
+				<h2>
+					<a data-ng-href="#!/workouts/{{workout._id}}">{{workout.title}}</a>
+	        <span data-ng-if="hasAuthorization(workout)">
+	          <a class="btn" href="/#!/workouts/{{workout._id}}/edit">
+		          <i class="glyphicon glyphicon-edit"></i>
+	          </a>
+	          <a class="btn" data-ng-click="remove(workout);">
+		          <i class="glyphicon glyphicon-trash"></i>
+	          </a>
+	        </span>
+				</h2>
+				<div>{{workout.description}}</div>
+			</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!workouts || workouts.length">No workouts yet. <br> Why don't you <a href="/#!/workouts/create">Create One</a>?</h1>
+</section>

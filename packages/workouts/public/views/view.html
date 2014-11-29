@@ -1,0 +1,20 @@
+<section data-ng-controller="WorkoutsController" data-ng-init="findOne()">
+	<h1 editable-text="workout.title">{{workout.title}}</h1>
+
+	<ul>
+		<li ng-repeat="exercise in workout.workoutsExercises">
+			<exercise ng-init="findThis(exercise.id)"></exercise>
+			{{exercise | json}}
+			<ul>
+				<li ng-repeat="set in exercise.sets">
+					<span>{{set.lb}} lb X {{set.reps}} reps</span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<a class="button" ng-href="#!/workouts/{{workout._id}}/edit">Edit exercise</a>
+		</div>
+	</div>
+</section>

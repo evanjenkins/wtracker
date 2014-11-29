@@ -50,6 +50,7 @@
     "meanio": "~0.5.10",
     "method-override": "^1.0.0",
     "mongoose": "^3.8.8",
+    "mongoose-file": "^0.0.2",
     "morgan": "^1.0.0",
     "ms": "0.6.2",
     "nodemailer": "1.2.2",

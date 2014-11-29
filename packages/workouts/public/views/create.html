@@ -1,0 +1,44 @@
+<section class="row" data-ng-controller="WorkoutsController" data-ng-init="beginCreation()">
+	<form name="exerciseForm" class="form-horizontal col-md-12" role="form" data-ng-submit="create(exerciseForm.$valid)" novalidate>
+		<div data-spy="affix" data-offset-top="60" class="row">Search title: <input ng-model="search.title">
+			<div class="col-sm-12">Filter muscle: <select id="muscle" ng-model="search.works" ng-options="muscle for muscle in muscles" required><option value="">No filter</option></select></div>
+			<div class="col-sm-12">Filter category: <select id="category" ng-model="search.category" ng-options="category for category in categories" required><option value="">No filter</option></select></div>
+			<div class="col-sm-12">Filter equipment: <select id="equipment" ng-model="search.equipment" ng-options="equipment for equipment in equipments" required><option value="">No filter</option></select></div>
+		</div>
+		<ul ng-if="!inExercise" class="list-items">
+			<li data-ng-repeat="exercise in exercises | filter:search | orderBy:exercise.title"><a ng-click="startExercise(exercise)"><img ng-src="{{exercise.photo}}" width="50px" /><span>{{exercise.title}}</span></a></li>
+		</ul>
+
+		<div data-ng-if="inExercise">
+			<img ng-src="{{currentExercise.photo}}" width="50px" />
+			<h3>{{currentExercise.title}}</h3>
+			{{currentWorkout.workoutsExercises | json}}
+			<ol>
+				<li data-ng-repeat="set in currentWorkout.workoutsExercises[currentExercise.index].sets">
+					<div class="form-group">
+						<label for="weight">Weight</label>
+						<input data-ng-model="currentWorkout.workoutsExercises[currentExercise.index].sets[$index].lb" id="weight" type="number" min="0" max="5000" placeholder="lbs" />
+						<label for="reps">Reps</label>
+						<input data-ng-model="currentWorkout.workoutsExercises[currentExercise.index].sets[$index].reps" id="reps" type="number" min="0" max="500" placeholder="Reps" />
+					</div>
+					<span>1 rep Max: {{calulateMax(currentWorkout.workoutsExercises[currentExercise.index].sets[$index])}}</span>
+					<a class="btn" data-ng-click="removeSet($index, currentWorkout.workoutsExercises[currentExercise.index].sets);">
+						<i class="glyphicon glyphicon-remove"></i>
+					</a>
+					<hr/>
+				</li>
+			</ol>
+			<a class="btn" data-ng-click="addSet(currentExercise);">
+				<i class="glyphicon glyphicon-plus">Add Set</i>
+			</a>
+			<a class="btn" data-ng-click="pushExercise(currentExercise);">
+				<i class="glyphicon glyphicon-ok">Done</i>
+			</a>
+		</div>
+		<div data-ng-if="!inExercise" class="form-group">
+			<div class="col-md-offset-3 col-md-9">
+				<button mean-token="'create-submit'" type="submit" class="btn btn-info">Submit</button>
+			</div>
+		</div>
+	</form>
+</section>
